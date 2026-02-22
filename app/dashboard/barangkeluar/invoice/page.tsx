@@ -19,9 +19,10 @@ type BarangKeluarRow = {
 export default async function BarangKeluarInvoiceAll({
   searchParams,
 }: {
-  searchParams?: { print?: string };
+  searchParams?: Promise<{ print?: string }>;
 }) {
   const supabase = await createClient();
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
 
   const {
     data: { user },
@@ -53,7 +54,7 @@ export default async function BarangKeluarInvoiceAll({
     };
   });
 
-  const shouldAutoPrint = searchParams?.print === "1";
+  const shouldAutoPrint = resolvedSearchParams?.print === "1";
 
   return (
     <div className="p-4 sm:p-6">

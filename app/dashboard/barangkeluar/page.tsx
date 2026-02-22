@@ -182,7 +182,7 @@ export default async function BarangKeluar() {
           </div>
 
           <div className="hidden overflow-x-auto sm:block">
-            <table className="min-w-[720px] w-full border border-collapse text-xs sm:text-sm">
+            <table className="min-w-180 w-full border border-collapse text-xs sm:text-sm">
               <thead className="bg-gray-100">
                 <tr>
                   <th className="border p-2 text-left">ID</th>

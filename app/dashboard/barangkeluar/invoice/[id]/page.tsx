@@ -20,10 +20,12 @@ export default async function BarangKeluarInvoice({
   params,
   searchParams,
 }: {
-  params?: { id?: string };
-  searchParams?: { print?: string };
+  params?: Promise<{ id?: string }>;
+  searchParams?: Promise<{ print?: string }>;
 }) {
   const supabase = await createClient();
+  const resolvedParams = params ? await params : undefined;
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
 
   const {
     data: { user },
@@ -34,7 +36,7 @@ export default async function BarangKeluarInvoice({
     redirect("/login");
   }
 
-  const idParam = params?.id ?? "";
+  const idParam = resolvedParams?.id ?? "";
   const isBadId =
     !idParam || idParam === "undefined" || idParam === "null";
   const idNumber = Number(idParam);
@@ -77,7 +79,7 @@ export default async function BarangKeluarInvoice({
     namabarang: stock?.namabarang || "Barang tidak ditemukan",
   };
 
-  const shouldAutoPrint = searchParams?.print === "1";
+  const shouldAutoPrint = resolvedSearchParams?.print === "1";
 
   return (
     <div className="p-4 sm:p-6">
